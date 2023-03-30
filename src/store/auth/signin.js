@@ -27,7 +27,7 @@ export const useSigninStore = defineStore('signin', {
 
                 signInWithEmailAndPassword(auth, this.email, this.password)
                     .then(user => {
-                        localStorage.megaMartUser = user.user
+                        localStorage.megaMartUser = JSON.stringify(user.user)
 
                         this.loading = false
                         router.push('/app')

@@ -3,8 +3,18 @@
     <v-app-bar-title class="font-weight-bold">MegaMart </v-app-bar-title>
     <v-spacer />
 
-    <v-btn class="text-capitalize" :class="$route.path == '/' ? 'bg-blue' : ''" rounded="lg" to="/">Login</v-btn>
-    <v-btn class="text-capitalize ml-2" :class="$route.path == '/signup' ? 'bg-blue' : ''" rounded="lg" to="/signup">Sign
-      Up</v-btn>
+    <v-chip color="blue" to="/app/profile">
+      <v-icon class="mr-2">mdi-account</v-icon>
+
+      <span>{{ profile.user?.name }}</span>
+    </v-chip>
+    <v-btn class="bg-blue ml-2" rounded="lg">Sell</v-btn>
   </v-app-bar>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { useProfileStore } from "@/store/app/profile/getProfile";
+
+const profile = ref(useProfileStore())
+</script>

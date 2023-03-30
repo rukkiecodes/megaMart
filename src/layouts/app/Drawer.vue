@@ -2,9 +2,7 @@
     <v-navigation-drawer width="200" border="0">
         <template v-slot:append>
             <div class="pa-2">
-                <v-btn block flat class="text-capitalize bg-blue-lighten-4 text-blue font-weight-bold">
-                    Logout
-                </v-btn>
+                <Logout />
             </div>
         </template>
 
@@ -19,6 +17,7 @@
 
 <script setup>
 import { useNavStore } from '@/store/app/nav';
+import Logout from '@/components/fragments/Logout.vue';
 
 const { routes } = useNavStore()
 </script>
