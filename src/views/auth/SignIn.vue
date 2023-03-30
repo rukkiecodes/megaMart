@@ -5,12 +5,14 @@
             <v-card-text class="text-center text-caption">Welcome back. please fill the form to access your
                 account</v-card-text>
             <v-card-text>
-                <v-text-field v-model="signin.email" label="Your Email" type="email" variant="underlined" density="comfortable"
-                    prepend-inner-icon="mdi-email" />
-                <v-text-field v-model="signin.password" label="Your Password" variant="underlined" prepend-inner-icon="mdi-lock"
-                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
-                    :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" />
-                <v-btn :loading="signin.loading" @click="signin.signinUser" block height="45" class="bg-blue mt-4" rounded="lg" flat>Login</v-btn>
+                <v-text-field v-model="signin.email" label="Your Email" type="email" variant="underlined"
+                    density="comfortable" prepend-inner-icon="mdi-email" color="blue" />
+                <v-text-field v-model="signin.password" label="Your Password" variant="underlined"
+                    prepend-inner-icon="mdi-lock" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1"
+                    color="blue" />
+                <v-btn :loading="signin.loading" @click="signin.signinUser" block height="45" class="bg-blue mt-4"
+                    rounded="lg" flat>Login</v-btn>
             </v-card-text>
         </v-card>
     </v-container>
