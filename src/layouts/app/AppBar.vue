@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar>
+  <v-app-bar flat>
     <v-app-bar-title class="font-weight-bold">MegaMart </v-app-bar-title>
     <v-spacer />
 
