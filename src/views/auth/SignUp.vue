@@ -5,12 +5,12 @@
       <v-card-text class="text-center text-caption">Please fill the form to create your account</v-card-text>
       <v-card-text>
         <v-text-field v-model="signup.name" label="Your Name" type="email" variant="underlined" density="comfortable"
-          prepend-inner-icon="mdi-account" />
+          prepend-inner-icon="mdi-account" color="blue" />
         <v-text-field v-model="signup.email" label="Your Email" type="email" variant="underlined" density="comfortable"
-          prepend-inner-icon="mdi-email" />
-        <v-text-field :v-model="signup.password" label="Create password" variant="underlined"
+          prepend-inner-icon="mdi-email" color="blue" />
+        <v-text-field v-model="signup.password" label="Create password" variant="underlined"
           prepend-inner-icon="mdi-lock" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" />
+          :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" color="blue" />
         <v-btn :loading="signup.loading" @click="signup.createUser" block height="45" class="bg-blue mt-4" rounded="lg" flat>Sign Up</v-btn>
       </v-card-text>
     </v-card>

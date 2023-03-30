@@ -8,13 +8,24 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Signin',
+        name: 'signin',
         component: () => import('@/views/auth/SignIn.vue'),
       },
       {
         path: '/signup',
         name: 'signup',
         component: () => import('@/views/auth/SignUp.vue'),
+      },
+    ],
+  },
+  {
+    path: '/app',
+    component: () => import('@/layouts/app/Default.vue'),
+    children: [
+      {
+        path: '',
+        name: 'app',
+        component: () => import('@/views/app/Home.vue'),
       },
     ],
   },
