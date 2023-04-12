@@ -37,6 +37,11 @@ const routes = [
         name: 'app.profile',
         component: () => import('@/views/app/Profile.vue'),
       },
+      {
+        path: 'sell',
+        name: 'app.sell',
+        component: () => import('@/views/app/Sell.vue'),
+      },
     ],
   },
 ]

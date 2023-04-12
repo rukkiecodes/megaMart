@@ -8,7 +8,7 @@
 
       <span>{{ profile.user?.name }}</span>
     </v-chip>
-    <v-btn class="bg-blue ml-2" rounded="lg">Sell</v-btn>
+    <v-btn to="/app/sell" class="bg-blue ml-2" rounded="lg">Sell</v-btn>
   </v-app-bar>
 </template>
 
