@@ -73,8 +73,11 @@
                     <v-col cols="12" sm="6">
                         <v-text-field v-model="sell.form.brand" label="Brand" variant="underlined" />
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" sm="6">
                         <v-text-field v-model="sell.form.modelNumber" label="Model number" variant="underlined" />
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                        <v-text-field v-model="sell.form.condition" label="Condition" variant="underlined" />
                     </v-col>
                     <v-col cols="12">
                         <v-btn @click="sell.createAd" :loading="sell.loading" block color="blue" size="large" rounded="lg">Post Ad</v-btn>

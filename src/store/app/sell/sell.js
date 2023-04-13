@@ -1,5 +1,12 @@
 // Utilities
+import { useAppStore } from '@/store/app'
 import { defineStore } from 'pinia'
+
+import { auth, db } from '@/plugins/firebase'
+import { addDoc, collection, doc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage"
+
+const app = useAppStore()
 
 export const useSellStore = defineStore('sell', {
     state: () => ({
@@ -23,7 +30,6 @@ export const useSellStore = defineStore('sell', {
             condition: "",
             brand: "",
             modelNumber: "",
-            reviews: [],
             seller: {
                 name: "",
                 location: "",
@@ -39,22 +45,62 @@ export const useSellStore = defineStore('sell', {
     }),
 
     actions: {
-        createAd() {
+        async createAd() {
             let input = this.form
-            console.log({
-                name: input.name,
-                description: input.description,
-                category: input.category,
-                subcategory: input.subcategory,
-                image: this.image,
-                price: input.price,
-                quantity: input.quantity,
-                shippingCost: input.shippingCost
-            })
+            const userData = await JSON.parse(localStorage.megaMartUser)
+
             if (input.name == '' || input.description == '' || input.category == '' || input.subcategory.length < 1 || !this.image || input.price == 0 || input.quantity == 0 || input.shippingCost == 0) {
-                console.log('Fill form')
+                app.snackbar = true
+                app.snackbarColor = 'warning'
+                app.snackbarText = 'Please complete the form'
             } else {
-                console.log('all good')
+                let file = this.image
+
+                const storage = getStorage()
+
+                let link = `goods/${userData.uid}/${file.name}`
+
+                const storageRef = ref(storage, link)
+
+                const uploadTask = uploadBytesResumable(storageRef, file)
+
+                this.loading = true
+
+                uploadTask.on('state_changed', snapshot => { },
+                    error => { },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref)
+                            .then(async downloadURL => {
+                                await addDoc(collection(db, 'ads'), {
+                                    name: this.form.name,
+                                    description: this.form.description,
+                                    category: this.form.category,
+                                    subcategory: this.form.subcategory,
+                                    price: this.form.price,
+                                    quantity: this.form.quantity,
+                                    variations: this.form.variations,
+                                    weight: this.form.weight,
+                                    dimensions: this.form.dimensions,
+                                    shippingOptions: this.form.shippingOptions,
+                                    shippingCost: this.form.shippingCost,
+                                    condition: this.form.condition,
+                                    brand: this.form.brand,
+                                    modelNumber: this.form.modelNumber,
+                                    seller: userData.uid,
+                                    image: downloadURL,
+                                    imageLink: uploadTask.snapshot.ref.fullPath,
+                                    dateCreated: serverTimestamp(),
+                                    status: 'active',
+                                    availability: 'in stock'
+                                })
+
+                                this.loading = false
+
+                                app.snackbar = true
+                                app.snackbarColor = 'green'
+                                app.snackbarText = 'Ad upoaded successfully'
+                            })
+                    })
             }
         }
     }
