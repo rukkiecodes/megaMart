@@ -1,14 +1,26 @@
 // Utilities
+import { db } from '@/plugins/firebase'
+import { collection, getDocs, limit, query } from 'firebase/firestore'
 import { defineStore } from 'pinia'
 
 export const useShoplistingStore = defineStore('shoplisting', {
     state: () => ({
-        goods: [
-            {
-                id: 1,
-                title: 'XIAOMI A1 Plus, 6.52" 4G LTE, 2GB/32GB Memory, Fingerprint, Face ID Recognition, Dual 8 MP, F/2.0, (wide)0.08 MP Camera - Blue',
-                image: 'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/36/0228491/1.jpg?0412'
-            }
-        ]
+        goods: []
     }),
+
+    actions: {
+        async getAds() {
+            const q = query(collection(db, "ads"), limit(200))
+
+            const querySnapshot = await getDocs(q)
+
+            this.goods = []
+            querySnapshot.forEach((doc) => {
+                this.goods.push({
+                    id: doc.id,
+                    ...doc.data()
+                })
+            });
+        }
+    }
 })
