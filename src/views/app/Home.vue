@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col v-for="(good, i) in shopListing.goods" :key="i" cols="12" sm="6" md="3">
-        <v-card rounded="xl">
+        <v-card rounded="xl" :to="`/app/${good.id}`">
           <v-img :src="good.image" />
 
           <v-card-title>{{ good.name }}</v-card-title>
