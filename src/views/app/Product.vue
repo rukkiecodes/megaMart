@@ -28,15 +28,54 @@
 
                             <v-card-title class="text-body-1">VARIATION AVAILABLE</v-card-title>
                             <v-card-text>
-                                <v-btn v-for="(variation, i) in product?.variations" :key="i" size="small"
-                                    class="ma-2 text-caption" variant="outlined" color="blue" rounded="lg">{{ variation
+                                <v-btn @click="clearVariations" v-if="selectedVariation.length >= 1" icon size="small" flat>
+                                    <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                                <v-btn v-for="(variation, i) in product?.variations" :key="i"
+                                    @click="selectVariation(variation, i)" height="50"
+                                    :class="selectedVariation.includes(variation) ? 'bg-blue' : ''" class="ma-2"
+                                    :variant="selectedVariation.includes(variation) ? 'tonal' : 'outlined'"
+                                    :color="selectedVariation.includes(variation) ? 'white' : 'blue'" rounded="lg">{{
+                                        variation
                                     }}</v-btn>
                             </v-card-text>
 
                             <v-card-actions>
-                                <v-btn size="x-large" class="bg-blue" rounded="xl" style="flex: 1;">Add to cart</v-btn>
-                                <v-btn icon size="large">
-                                    <v-icon>mdi-heart-outline</v-icon>
+                                <v-btn size="large" class="bg-blue" rounded="lg" block>
+                                    Add to cart
+
+                                    <v-dialog activator="parent" v-model="dialog" width="540">
+                                        <v-card rounded="xl">
+                                            <v-toolbar color="transparent" density="compact">
+                                                <v-toolbar-title>Please select a variation</v-toolbar-title>
+                                                <v-spacer />
+                                                <v-btn @click="dialog = false" icon size="small" flat>
+                                                    <v-icon>mdi-close</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-card-text>
+                                                <v-btn @click="clearVariations" v-if="selectedVariation.length >= 1" icon
+                                                    size="small" flat>
+                                                    <v-icon>mdi-close</v-icon>
+                                                </v-btn>
+                                                <v-btn v-for="(variation, i) in product?.variations" :key="i"
+                                                    @click="selectVariation(variation, i)" height="50"
+                                                    :class="selectedVariation.includes(variation) ? 'bg-blue' : ''"
+                                                    class="ma-2"
+                                                    :variant="selectedVariation.includes(variation) ? 'tonal' : 'outlined'"
+                                                    :color="selectedVariation.includes(variation) ? 'white' : 'blue'"
+                                                    rounded="lg">{{
+                                                        variation
+                                                    }}</v-btn>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-btn @click="dialog = false" color="blue" variant="outlined" rounded="xl"
+                                                    class="text-capitalize" style="flex: 1">Continue shopping</v-btn>
+                                                <v-btn @click="adToCart" color="blue" variant="tonal" rounded="xl"
+                                                    class="text-capitalize" style="flex: 1">Add to cart and checkout</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -46,7 +85,7 @@
         </v-card>
 
         <v-row class="mt-4">
-            <v-col cols="12" sm="8" order="1" order-sm="0">
+            <v-col cols="12">
                 <v-card rounded="xl">
                     <v-card-title>Product details</v-card-title>
                     <v-card-text>{{ product?.description }}</v-card-text>
@@ -65,14 +104,6 @@
                         <v-chip v-for="(option, i) in product?.shippingOptions" :key="i" class="text-capitalize ma-2">{{
                             option }}</v-chip>
                     </v-card-text>
-                </v-card>
-            </v-col>
-            <v-col cols="12" sm="4">
-                <v-card rounded="xl">
-                    <v-card-title>Seller Information</v-card-title>
-                    <v-card-title class="text-body-1">{{ profile?.name }}</v-card-title>
-
-                    <v-rating :model-value="profile?.rating == undefined ? 0 : profile?.rating" color="amber-darken-4" />
                 </v-card>
             </v-col>
         </v-row>
@@ -94,15 +125,18 @@
 
 <script>
 import { db } from '@/plugins/firebase';
-import { collection, doc, getDoc, getDocs, limit, query, where } from '@firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, limit, query, serverTimestamp, where } from '@firebase/firestore';
 import router from '@/router';
 
 export default {
     data: () => ({
         product: null,
         profile: null,
-        goods: []
+        goods: [],
+        selectedVariation: [],
+        dialog: false
     }),
+
     mounted() {
         this.$nextTick(() => {
             this.getProduct(this.$route.params.product)
@@ -144,6 +178,27 @@ export default {
         openProduct(prop) {
             router.push(`/app/${prop}`)
             this.getProduct(prop)
+        },
+
+        selectVariation(prop) {
+            if (this.selectedVariation.includes(prop)) return
+            else this.selectedVariation.push(prop)
+        },
+
+        clearVariations() {
+            this.selectedVariation = []
+        },
+
+        async adToCart() {
+            const userData = await JSON.parse(localStorage.megaMartUser)
+
+            await addDoc(collection(db, 'users', userData.uid, 'cart'), {
+                ...this.product,
+                selectedVariation: this.selectedVariation,
+                dataAdded: serverTimestamp()
+            })
+
+            router.push('/app/cart')
         }
     }
 }
