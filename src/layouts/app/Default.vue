@@ -14,12 +14,15 @@ import Drawer from './Drawer.vue'
 import { onMounted } from 'vue';
 import { useProfileStore } from '@/store/app/profile/getProfile';
 import { useShoplistingStore } from '@/store/app/shoplisting';
+import { useCartStore } from '@/store/app/cart';
 
 const profile = useProfileStore()
 const shopListing = useShoplistingStore()
+const cart = useCartStore()
 
 onMounted(() => {
   profile.getUserProfile()
   shopListing.getAds()
+  cart.getCart()
 })
 </script>
