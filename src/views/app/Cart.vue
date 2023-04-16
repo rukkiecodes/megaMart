@@ -43,7 +43,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" sm="4">
+      <!-- <v-col cols="12" sm="4">
         <v-card rounded="xl">
           <v-card-title class="text-body-1">CART SUMMARY</v-card-title>
           <v-divider />
@@ -52,7 +52,7 @@
             <span class="text-body-2 font-weight-bold text-grey-darken-3">{{ cart.cart.length }}</span>
           </v-card-text>
         </v-card>
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
