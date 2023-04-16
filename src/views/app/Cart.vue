@@ -34,12 +34,12 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-card-actions>
+          <!-- <v-card-actions>
             <v-btn color="blue">
               <v-icon class="mr-2">mdi-delete-outline</v-icon>
               Remove
             </v-btn>
-          </v-card-actions>
+          </v-card-actions> -->
         </v-card>
       </v-col>
 
