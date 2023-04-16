@@ -27,11 +27,11 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <v-col cols="12" sm="4" class="d-flex justify-sm-end">
+              <!-- <v-col cols="12" sm="4" class="d-flex justify-sm-end">
                 <v-card flat>
                   <v-card-title>₦{{ cart.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</v-card-title>
                 </v-card>
-              </v-col>
+              </v-col> -->
             </v-row>
           </v-card-text>
           <!-- <v-card-actions>
