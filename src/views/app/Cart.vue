@@ -27,23 +27,23 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <!-- <v-col cols="12" sm="4" class="d-flex justify-sm-end">
+              <v-col cols="12" sm="4" class="d-flex justify-sm-end">
                 <v-card flat>
                   <v-card-title>₦{{ cart.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</v-card-title>
                 </v-card>
-              </v-col> -->
+              </v-col>
             </v-row>
           </v-card-text>
-          <!-- <v-card-actions>
+          <v-card-actions>
             <v-btn color="blue">
               <v-icon class="mr-2">mdi-delete-outline</v-icon>
               Remove
             </v-btn>
-          </v-card-actions> -->
+          </v-card-actions>
         </v-card>
       </v-col>
 
-      <!-- <v-col cols="12" sm="4">
+      <v-col cols="12" sm="4">
         <v-card rounded="xl">
           <v-card-title class="text-body-1">CART SUMMARY</v-card-title>
           <v-divider />
@@ -52,7 +52,7 @@
             <span class="text-body-2 font-weight-bold text-grey-darken-3">{{ cart.cart.length }}</span>
           </v-card-text>
         </v-card>
-      </v-col> -->
+      </v-col>
     </v-row>
   </v-container>
 </template>
