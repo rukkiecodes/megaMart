@@ -176,7 +176,7 @@ export default {
         },
 
         openProduct(prop) {
-            router.push(`/app/${prop}`)
+            router.push(`/app/products/${prop}`)
             this.getProduct(prop)
         },
 

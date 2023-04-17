@@ -1,5 +1,5 @@
 <template>
-    {{ user }}
+    <router-link :to="`/app/profile/${user?.user}`" class="text-grey-darken-4">{{ user?.name }}</router-link>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
         cart: Object
     },
     data: () => ({
-        user: null
+        user: {}
     }),
 
     mounted() {
@@ -20,7 +20,7 @@ export default {
     methods: {
         async getUser() {
             let _user = (await getDoc(doc(db, 'users', this.cart.seller))).data()
-            this.user = _user.name
+            this.user = _user
         }
     }
 }

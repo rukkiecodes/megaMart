@@ -16,7 +16,8 @@
                   <v-col cols="10">
                     <v-card flat>
                       <v-card-text class="text-h5 pb-0">
-                        <router-link class="text-decoration-none text-grey-darken-4" :to="`/app/${cart.id}`">{{ cart?.name
+                        <router-link class="text-decoration-none text-grey-darken-4" :to="`/app/products/${cart?.id}`">{{
+                          cart?.name
                         }}</router-link>
                       </v-card-text>
                       <v-card-text class="pb-0">Seller:
@@ -51,6 +52,25 @@
             <span class="text-body-2 font-weight-bold text-grey-darken-3">Items:</span>
             <span class="text-body-2 font-weight-bold text-grey-darken-3">{{ cart.cart.length }}</span>
           </v-card-text>
+          <v-card-text class="d-flex justify-space-between">
+            <span class="text-body-2 font-weight-bold text-grey-darken-3">Sub total:</span>
+            <span class="text-body-2 font-weight-bold text-grey-darken-3">₦{{
+              subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
+          </v-card-text>
+          <v-card-text class="d-flex justify-space-between">
+            <span class="text-body-2 font-weight-bold text-grey-darken-3">Shipping:</span>
+            <span class="text-body-2 font-weight-bold text-grey-darken-3">₦{{
+              shipping.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
+          </v-card-text>
+          <v-card-text class="d-flex justify-space-between">
+            <span class="text-body-2 font-weight-bold text-grey-darken-3">Total:</span>
+            <span class="text-body-2 font-weight-bold text-grey-darken-3">₦{{
+              total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn block class="bg-blue" rounded="xl">Check out ₦{{
+              total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -60,5 +80,29 @@
 <script setup>
 import SellerNameVue from "@/components/SellerInfo/SellerName.vue";
 import { useCartStore } from "@/store/app/cart";
+import { onMounted, ref } from "vue";
 const cart = useCartStore()
+
+let subTotal = ref(0)
+let shipping = ref(0)
+let total = ref(0)
+
+onMounted(() => {
+  setTimeout(() => {
+    const sum = cart.cart.reduce((total, item) => {
+      return total + item.price;
+    }, 0);
+
+    subTotal.value = sum
+
+    const sum2 = cart.cart.reduce((acc, obj) => {
+      return acc + obj.price;
+    }, 0);
+
+    const average = (sum2 / cart.cart.length) / 8
+    shipping.value = average
+
+    total.value = subTotal.value + shipping.value
+  }, 5000)
+})
 </script>

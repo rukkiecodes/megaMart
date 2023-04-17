@@ -25,27 +25,46 @@ const routes = [
       {
         path: '',
         name: 'app',
-        component: () => import('@/views/app/Home.vue'),
+        component: () => import('@/views/app/home/Home.vue'),
       },
       {
-        path: 'home',
+        path: 'products',
         name: 'app.home',
-        component: () => import('@/views/app/Home.vue'),
+        component: () => import('@/views/app/home/Home.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('@/views/app/home/Products.vue')
+          },
+          {
+            path: ':product',
+            component: () => import('@/views/app/home/Product.vue'),
+          },
+        ]
       },
       {
         path: 'profile',
         name: 'app.profile',
-        component: () => import('@/views/app/Profile.vue'),
+        component: () => import('@/views/app/profile/Profile.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('@/views/app/profile/Me.vue')
+          },
+          {
+            path: 'me',
+            component: () => import('@/views/app/profile/Me.vue')
+          },
+          {
+            path: ':profile',
+            component: () => import('@/views/app/profile/Other.vue')
+          }
+        ]
       },
       {
         path: 'sell',
         name: 'app.sell',
         component: () => import('@/views/app/Sell.vue'),
-      },
-      {
-        path: ':product',
-        name: 'app.product',
-        component: () => import('@/views/app/Product.vue'),
       },
       {
         path: 'cart',
