@@ -68,7 +68,7 @@
               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
           </v-card-text>
           <v-card-actions>
-            <v-btn block class="bg-blue" rounded="xl">Check out ₦{{
+            <v-btn to="/app/checkout" block class="bg-blue" rounded="xl">Check out ₦{{
               total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</v-btn>
           </v-card-actions>
         </v-card>
