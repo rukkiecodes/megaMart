@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-card rounded="xl">
+        <v-card rounded="xl" :disabled="product?.quantity < 1">
             <v-card-text>
                 <v-row>
                     <v-col cols="12" sm="5">

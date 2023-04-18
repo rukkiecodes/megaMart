@@ -47,14 +47,10 @@
           <v-card-text v-if="profile.user?.address != undefined" class="pt-0">
             {{ profile.user?.address }}
           </v-card-text>
-
-          <v-card-actions>
-            <Logout />
-          </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="12" sm="9">
-        <v-sheet min-height="400">
+        <v-sheet v-if="shoplisting.myGoods.length < 1" min-height="400">
           <v-container>
             <v-toolbar color="transparent">
               <v-toolbar-title>My adverts</v-toolbar-title>
@@ -73,6 +69,18 @@
             </v-card>
           </v-container>
         </v-sheet>
+        <v-row v-else dense>
+          <v-col v-for="(good, i) in shoplisting.myGoods" :key="i" cols="12" sm="6" md="4">
+            <v-card rounded="xl">
+              <v-img :src="good.image" />
+
+              <v-card-title>{{ good.name }}</v-card-title>
+              <v-card-text class="d-flex justify-space-between"><span>₦ {{
+                good.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span> <span>{{
+    good.availability }}</span></v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -82,8 +90,9 @@
 import { ref } from 'vue'
 import { useProfileStore } from "@/store/app/profile/getProfile";
 import { useUpdateProfileStore } from "@/store/app/profile/updateProfile";
-import Logout from '@/components/fragments/Logout.vue';
+import { useShoplistingStore } from '@/store/app/shoplisting';
 
 const profile = ref(useProfileStore())
 const profileUpdate = useUpdateProfileStore()
+const shoplisting = useShoplistingStore()
 </script>

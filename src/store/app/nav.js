@@ -6,12 +6,20 @@ export const useNavStore = defineStore('nav', {
         routes: [
             {
                 title: 'Home',
-                to: '/app'
+                to: '/app/products'
             },
-            // {
-            //     title: 'Supermarket',
-            //     to: '/app/supermarket'
-            // }
+            {
+                title: 'Profile',
+                to: '/app/profile'
+            },
+            {
+                title: 'Cart',
+                to: '/app/cart'
+            },
+            {
+                title: 'Sell',
+                to: '/app/sell'
+            },
         ]
     }),
 })

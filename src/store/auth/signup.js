@@ -38,7 +38,7 @@ export const useSignupStore = defineStore('signup', {
 
                         this.loading = false
 
-                        router.push('/app')
+                        router.push('/app/products')
                     })
                     .catch(error => {
                         this.loading = false

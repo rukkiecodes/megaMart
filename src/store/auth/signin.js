@@ -30,7 +30,7 @@ export const useSigninStore = defineStore('signin', {
                         localStorage.megaMartUser = JSON.stringify(user.user)
 
                         this.loading = false
-                        router.push('/app')
+                        router.push('/app/products')
                     })
                     .catch((error) => {
                         this.loading = false

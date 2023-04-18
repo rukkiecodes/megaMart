@@ -23,6 +23,7 @@ const cart = useCartStore()
 onMounted(() => {
   profile.getUserProfile()
   shopListing.getAds()
+  shopListing.userAds()
   cart.getCart()
 })
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="cart.cart.length >= 1">
       <v-col v-for="(cart, i) in cart.cart" :key="i" cols="12" sm="8">
         <v-card rounded="xl">
           <v-card-text>
@@ -74,6 +74,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-card v-else flat class="mt-16">
+      <v-card-text class="text-center text-h3" style="line-height: 1em;">Your cart is empty at the moment</v-card-text>
+    </v-card>
   </v-container>
 </template>
 
