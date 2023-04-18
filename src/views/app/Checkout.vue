@@ -69,8 +69,8 @@
                     <v-card-actions>
                         <paystack buttonClass="bg-blue rounded-xl" style="width: 100%; height: 3em;"
                             :buttonText="`Check out ₦ ${total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`"
-                            :publicKey="publicKey" :email="profile.user?.email" :amount="total" :reference="reference"
-                            :onSuccess="() => onSuccessfulPayment()" :onCanel="() => onCancelledPayment()">
+                            :publicKey="publicKey" :email="profile.user?.email" :amount="total * 100" :reference="reference"
+                            :onSuccess="onSuccessfulPayment" :onCanel="onCancelledPayment">
                             >
                         </paystack>
                     </v-card-actions>
@@ -86,6 +86,9 @@ import { onMounted, ref } from "vue";
 import paystack from "vue3-paystack"
 import { v4 as uuidv4 } from 'uuid'
 import { useProfileStore } from "@/store/app/profile/getProfile";
+import { addDoc, collection, deleteDoc, doc, increment, serverTimestamp, updateDoc } from "@firebase/firestore";
+import { db } from "@/plugins/firebase";
+import router from "@/router";
 
 const cart = useCartStore()
 const profile = useProfileStore()
@@ -114,15 +117,34 @@ onMounted(() => {
         total.value = subTotal.value + shipping.value
     }, 5000)
 
-    reference.value = uuidv4()
+    reference.value = `MegaMart-${uuidv4()}`
     publicKey.value = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY
 })
 
-const onSuccessfulPayment = () => { 
-    console.log('payment made')
+const onSuccessfulPayment = async response => {
+    reference.value = `MegaMart-${uuidv4()}`
+
+    await addDoc(collection(db, 'users', profile.user.user, 'orders'), {
+        cart: [...cart.cart],
+        subTotal: subTotal.value,
+        shipping: shipping.value,
+        total: total.value,
+        reference: reference.value,
+        payment: { ...response },
+        orderedAt: serverTimestamp()
+    })
+
+
+    cart.cart.forEach(async cart => {
+        await deleteDoc(doc(db, 'users', profile.user.user, 'cart', cart.cart))
+        await updateDoc(doc(db, 'ads', cart.id), {
+            quantity: increment(-1)
+        })
+        router.push('/app')
+    })
 }
 
-const onCancelledPayment = () => { 
+const onCancelledPayment = () => {
     console.log('canceled payment')
 }
 </script>

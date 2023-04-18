@@ -17,7 +17,7 @@ export const useCartStore = defineStore('cart', {
                 this.cart = [];
                 querySnapshot.forEach((doc) => {
                     this.cart.push({
-                        id: doc.id,
+                        cart: doc.id,
                         ...doc.data()
                     });
                 });
