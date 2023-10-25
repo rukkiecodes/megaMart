@@ -2,12 +2,11 @@
   <v-app>
     <default-bar />
 
-    <v-main>
-      <router-view />
-    </v-main>
+    <default-view />
   </v-app>
 </template>
 
 <script setup>
-import DefaultBar from './AppBar.vue'
+  import DefaultBar from './AppBar.vue'
+  import DefaultView from './View.vue'
 </script>

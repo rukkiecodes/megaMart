@@ -1,11 +1,12 @@
 // Utilities
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useAppStore = defineStore('app', {
+export const useAppStore = defineStore("app", {
   state: () => ({
+    drawer: false,
     snackbar: false,
-    snackbarText: '',
-    snackbarColor: '',
+    snackbarText: "",
+    snackbarColor: "",
     categories: [
       {
         name: "Electronics",
@@ -16,8 +17,8 @@ export const useAppStore = defineStore('app', {
           "TV, Audio & Video",
           "Cameras & Accessories",
           "Gaming Consoles & Accessories",
-          "Other Electronics"
-        ]
+          "Other Electronics",
+        ],
       },
       {
         name: "Computers & Accessories",
@@ -30,8 +31,8 @@ export const useAppStore = defineStore('app', {
           "Computer Accessories",
           "Printers, Ink & Accessories",
           "Storage Devices",
-          "Other Computer & Accessories"
-        ]
+          "Other Computer & Accessories",
+        ],
       },
       {
         name: "Phones & Accessories",
@@ -43,8 +44,8 @@ export const useAppStore = defineStore('app', {
           "Chargers & Cables",
           "Headsets & Earphones",
           "Power Banks",
-          "Other Phone Accessories"
-        ]
+          "Other Phone Accessories",
+        ],
       },
       {
         name: "Home & Kitchen",
@@ -55,8 +56,8 @@ export const useAppStore = defineStore('app', {
           "Kitchen & Dining",
           "Storage & Organization",
           "Home Appliances",
-          "Other Home & Kitchen"
-        ]
+          "Other Home & Kitchen",
+        ],
       },
       {
         name: "Fashion",
@@ -68,8 +69,8 @@ export const useAppStore = defineStore('app', {
           "Watches",
           "Jewelry",
           "Bags & Luggage",
-          "Other Fashion Accessories"
-        ]
+          "Other Fashion Accessories",
+        ],
       },
       {
         name: "Beauty & Personal Care",
@@ -79,8 +80,8 @@ export const useAppStore = defineStore('app', {
           "Hair Care",
           "Fragrances",
           "Personal Care Appliances",
-          "Other Beauty & Personal Care"
-        ]
+          "Other Beauty & Personal Care",
+        ],
       },
       {
         name: "Toys & Games",
@@ -91,8 +92,8 @@ export const useAppStore = defineStore('app', {
           "Building Toys",
           "Electronic Toys",
           "Outdoor Play",
-          "Other Toys & Games"
-        ]
+          "Other Toys & Games",
+        ],
       },
       {
         name: "Books",
@@ -103,8 +104,8 @@ export const useAppStore = defineStore('app', {
           "Textbooks",
           "Audiobooks",
           "Magazines",
-          "Other Books"
-        ]
+          "Other Books",
+        ],
       },
       {
         name: "Sports & Outdoors",
@@ -115,8 +116,8 @@ export const useAppStore = defineStore('app', {
           "Cycling",
           "Water Sports",
           "Winter Sports",
-          "Other Sports & Outdoors"
-        ]
+          "Other Sports & Outdoors",
+        ],
       },
       {
         name: "Automotive",
@@ -125,8 +126,8 @@ export const useAppStore = defineStore('app', {
           "Motorcycles",
           "Parts & Accessories",
           "Tools & Equipment",
-          "Other Automotive"
-        ]
+          "Other Automotive",
+        ],
       },
       {
         name: "Grocery",
@@ -137,8 +138,8 @@ export const useAppStore = defineStore('app', {
           "Bakery & Bread",
           "Dairy & Eggs",
           "Produce",
-          "Other Grocery"
-        ]
+          "Other Grocery",
+        ],
       },
       {
         name: "Pet Supplies",
@@ -149,8 +150,8 @@ export const useAppStore = defineStore('app', {
           "Fish & Aquatic Supplies",
           "Small Animal Supplies",
           "Reptile & Amphibian Supplies",
-          "Other Pet Supplies"
-        ]
+          "Other Pet Supplies",
+        ],
       },
       {
         name: "Office Supplies",
@@ -160,8 +161,8 @@ export const useAppStore = defineStore('app', {
           "Office Electronics",
           "Office Furniture",
           "Office Storage & Organization",
-          "Other Office Supplies"
-        ]
+          "Other Office Supplies",
+        ],
       },
       {
         name: "Health & Wellness",
@@ -171,8 +172,8 @@ export const useAppStore = defineStore('app', {
           "Medicine",
           "First Aid",
           "Sports Nutrition",
-          "Other Health & Wellness"
-        ]
+          "Other Health & Wellness",
+        ],
       },
       {
         name: "Jewelry",
@@ -182,8 +183,8 @@ export const useAppStore = defineStore('app', {
           "Men's Jewelry",
           "Children's Jewelry",
           "Watches",
-          "Other Jewelry"
-        ]
+          "Other Jewelry",
+        ],
       },
       {
         name: "Baby & Kids",
@@ -193,8 +194,8 @@ export const useAppStore = defineStore('app', {
           "Toys & Games",
           "Clothing & Shoes",
           "Baby & Kids Accessories",
-          "Other Baby & Kids"
-        ]
+          "Other Baby & Kids",
+        ],
       },
       {
         name: "Arts & Crafts",
@@ -204,8 +205,8 @@ export const useAppStore = defineStore('app', {
           "Sewing",
           "Scrapbooking & Stamping",
           "Party Decorations & Supplies",
-          "Other Arts & Crafts"
-        ]
+          "Other Arts & Crafts",
+        ],
       },
       {
         name: "Music",
@@ -214,8 +215,8 @@ export const useAppStore = defineStore('app', {
           "Digital Music",
           "Musical Instruments",
           "DJ & Karaoke",
-          "Other Music"
-        ]
+          "Other Music",
+        ],
       },
       {
         name: "Movies & TV Shows",
@@ -224,8 +225,8 @@ export const useAppStore = defineStore('app', {
           "Digital Movies & TV",
           "TV Shows",
           "Documentary",
-          "Other Movies & TV Shows"
-        ]
+          "Other Movies & TV Shows",
+        ],
       },
       {
         name: "Industrial & Scientific",
@@ -234,9 +235,9 @@ export const useAppStore = defineStore('app', {
           "Industrial Supplies",
           "Janitorial & Sanitation Supplies",
           "Test, Measure & Inspect",
-          "Other Industrial & Scientific"
-        ]
-      }
+          "Other Industrial & Scientific",
+        ],
+      },
     ],
   }),
-})
+});
