@@ -93,7 +93,7 @@ export const useSellStore = defineStore("sell", {
                   category: this.form.category,
                   subcategory: this.form.subcategory,
                   price: this.form.price,
-                  quantity: this.form.quantity,
+                  quantity: parseFloat(this.form.quantity),
                   variations: this.form.variations,
                   weight: this.form.weight,
                   dimensions: this.form.dimensions,

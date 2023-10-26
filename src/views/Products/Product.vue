@@ -307,6 +307,7 @@ export default {
 
       await addDoc(collection(db, "users", userData.uid, "cart"), {
         ...this.product,
+        quantity: 1,
         selectedVariation: this.selectedVariation,
         dataAdded: serverTimestamp(),
       });
