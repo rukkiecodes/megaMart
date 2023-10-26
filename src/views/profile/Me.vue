@@ -128,7 +128,7 @@
 import { db } from "@/plugins/firebase";
 import { useProfileStore } from "@/store/profile";
 import { useShoplistingStore } from "@/store/shoppingList";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export default {
   data: () => ({
@@ -152,9 +152,6 @@ export default {
 
   methods: {
     async updateItem() {
-      let user = JSON.parse(localStorage.megamartUser).uid;
-      // console.log({ ...this.dialog })
-
       await updateDoc(doc(db, 'ads', this.dialog.id), {
         description: this.dialog.description,
         price: parseFloat(this.dialog.price),
@@ -164,7 +161,11 @@ export default {
       this.dialog.active = false
     },
 
-    async deleteItem() { },
+    async deleteItem() {
+      await deleteDoc(doc(db, 'ads', this.dialog.id))
+
+      this.dialog.active = false
+    },
   }
 }
 </script>
